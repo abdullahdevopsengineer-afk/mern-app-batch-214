@@ -1,4 +1,70 @@
-name: Deploy to EC2 with Docker Compose
+# name: Deploy to EC2 with Docker Compose
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+#   workflow_dispatch:
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: SSH into EC2 and deploy
+#         uses: appleboy/ssh-action@v1.0.3
+
+#         with:
+#           host: ${{ secrets.EC2_HOST }}
+#           username: ${{ secrets.EC2_USER }}
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           port: ${{ secrets.EC2_SSH_PORT }}
+
+#           script: |
+#             echo "Connecting to server..."
+
+#             cd /home/ubuntu/mern-app-batch-215
+
+#             echo "Pulling latest code..."
+#             git pull origin main
+
+#             echo "Stopping old containers..."
+#             docker compose down
+
+#             echo "Building and starting containers..."
+#             docker compose up -d --build
+
+#             echo "Waiting for containers to start..."
+#             sleep 10
+
+#             echo "==============================="
+#             echo "RUNNING CONTAINERS"
+#             echo "==============================="
+
+#             docker ps
+
+#             echo "==============================="
+#             echo "ALL CONTAINERS"
+#             echo "==============================="
+
+#             docker ps -a
+
+#             echo "==============================="
+#             echo "DOCKER COMPOSE STATUS"
+#             echo "==============================="
+
+#             docker compose ps
+
+#             echo "==============================="
+#             echo "LAST 50 LOG LINES"
+#             echo "==============================="
+
+#             docker compose logs --tail=50
+name: Deploy Docker App to EC2
 
 on:
   push:
@@ -12,10 +78,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: SSH into EC2 and deploy
+      - name: SSH and Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
 
         with:
@@ -25,42 +88,52 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
 
           script: |
-            echo "Connecting to server..."
+            echo "==============================="
+            echo "Connected to EC2 Server"
+            echo "==============================="
 
-            cd /home/ubuntu/mern-app-batch-215
+            cd /home/ubuntu
 
-            echo "Pulling latest code..."
-            git pull origin main
+            # Clone repo if folder does not exist
+            if [ ! -d "mern-app-batch-214" ]; then
+              echo "Repository not found. Cloning repository..."
+              git clone https://github.com/abdullahdevopsengineer-afk/mern-app-batch-214.git
+            fi
 
-            echo "Stopping old containers..."
-            docker compose down
-
-            echo "Building and starting containers..."
-            docker compose up -d --build
-
-            echo "Waiting for containers to start..."
-            sleep 10
+            cd mern-app-batch-214
 
             echo "==============================="
-            echo "RUNNING CONTAINERS"
+            echo "Pulling latest code"
+            echo "==============================="
+
+            git pull origin main
+
+            echo "==============================="
+            echo "Stopping old containers"
+            echo "==============================="
+
+            docker compose down
+
+            echo "==============================="
+            echo "Starting Docker Compose"
+            echo "==============================="
+
+            docker compose up -d --build
+
+            echo "==============================="
+            echo "Running Containers"
             echo "==============================="
 
             docker ps
 
             echo "==============================="
-            echo "ALL CONTAINERS"
-            echo "==============================="
-
-            docker ps -a
-
-            echo "==============================="
-            echo "DOCKER COMPOSE STATUS"
+            echo "Docker Compose Status"
             echo "==============================="
 
             docker compose ps
 
             echo "==============================="
-            echo "LAST 50 LOG LINES"
+            echo "Container Logs"
             echo "==============================="
 
             docker compose logs --tail=50
