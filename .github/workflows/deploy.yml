@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
   workflow_dispatch:
 
 jobs:
@@ -17,6 +17,7 @@ jobs:
 
       - name: SSH into EC2 and deploy
         uses: appleboy/ssh-action@v1.0.3
+
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
@@ -24,11 +25,42 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
 
           script: |
+            echo "Connecting to server..."
+
             cd /home/ubuntu/mern-app-batch-215
 
+            echo "Pulling latest code..."
             git pull origin main
 
+            echo "Stopping old containers..."
             docker compose down
+
+            echo "Building and starting containers..."
             docker compose up -d --build
-            ### Check the status of the containers
+
+            echo "Waiting for containers to start..."
+            sleep 10
+
+            echo "==============================="
+            echo "RUNNING CONTAINERS"
+            echo "==============================="
+
+            docker ps
+
+            echo "==============================="
+            echo "ALL CONTAINERS"
+            echo "==============================="
+
             docker ps -a
+
+            echo "==============================="
+            echo "DOCKER COMPOSE STATUS"
+            echo "==============================="
+
+            docker compose ps
+
+            echo "==============================="
+            echo "LAST 50 LOG LINES"
+            echo "==============================="
+
+            docker compose logs --tail=50
