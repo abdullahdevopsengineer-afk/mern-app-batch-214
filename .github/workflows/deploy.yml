@@ -138,8 +138,9 @@
 
 #             docker compose logs --tail=50
 
-name: BUild and Deploy to kind 
-on :
+name: Build and Deploy to Kind
+
+on:
   push:
     branches:
       - main
@@ -150,15 +151,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: ssh-ec2 instance
-        uses: appleboy/ssh-action@v1
+
+      - name: SSH into EC2 instance
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{secrets.EC2_HOST}}
-          Port: ${{secrets.EC2_SSH_PORT}}
-          username: ${{secrets.EC2_USER}}
-          key: ${{secrets.EC2_SSH_KEY}}
+          host: ${{ secrets.EC2_HOST }}
+          port: ${{ secrets.EC2_SSH_PORT }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            echo "whami"
-            echo "pwd"
+            whoami
+            pwd
+            hostname
+            ls -la
