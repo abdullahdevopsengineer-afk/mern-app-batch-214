@@ -180,8 +180,8 @@ jobs:
      steps: 
        - name: images-build
          run: |
-          docker build -t backend:latest ./server
-          docker build -t frontend:latest ./client
+          docker build -t backend:latest ./home/ubuntu/mern-app-batch-214/server
+          docker build -t frontend:latest ./home/ubuntu/mern-app-batch-214/client
           docker tag backend:latest devopsabdullah45/mern-blog-backend215:v1
           docker tag frontend:latest devopsabdullah45/mern-blog-frontend215:v1
           docker push devopsabdullah45/mern-blog-backend215:v1
