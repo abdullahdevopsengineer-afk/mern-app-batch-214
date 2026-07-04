@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-backend
+  namespace: mern
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mern-backend
+  template:
+    metadata:
+      labels:
+        app: mern-backend
+    spec:
+      containers:
+      - name: backend
+        image: devopsabdullah45/mern-blog-214:backend01
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGODB_URI
+          value: mongodb://mongodb-service:27017/mern
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: mern
+spec:
+  selector:
+    app: mern-backend
+  ports:
+  - port: 5000
+    targetPort: 5000
