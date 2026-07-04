@@ -168,12 +168,12 @@ jobs:
       - name: Tag images
         run: |
           docker tag backend:latest devopsabdullah45/mern-blog-backend215:v1
-          docker tag frontend:latest devopsabdullah45/mern-blog-frontend215:v3
+          docker tag frontend:latest devopsabdullah45/mern-blog-frontend215:v1
 
       - name: Push images
         run: |
           docker push devopsabdullah45/mern-blog-backend215:v1
-          docker push devopsabdullah45/mern-blog-frontend215:v3
+          docker push devopsabdullah45/mern-blog-frontend215:v1
 
   deploy:
     needs: docker-build
@@ -198,5 +198,5 @@ jobs:
             kubectl apply -f backend_deployment.yml
             kubectl apply -f frontend_deployment.yml
             echo "Deployment completed successfully!"
-            kubectl port-forward svc/frontend-service -n mern 3030:80 --address=0.0.0.0
+       
       

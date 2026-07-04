@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: devopsabdullah45/mern-blog-frontend215:v3
+        image: devopsabdullah45/mern-blog-frontend215:v1
         ports:
         - containerPort: 3000
 ---
