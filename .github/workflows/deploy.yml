@@ -198,4 +198,5 @@ jobs:
             kubectl apply -f backend_deployment.yml
             kubectl apply -f frontend_deployment.yml
             echo "Deployment completed successfully!"
+            kubectl port-forward svc/frontend-service -n mern 3030:80 --address=0.0.0.0
       
