@@ -24,7 +24,7 @@ function Header() {
           to="/"
           className="text-xl font-serif font-bold tracking-tight hover:text-accent transition-colors"
         >
-          inkwell<span className="text-accent">.</span>
+          kuberenets-pipeline<span className="text-accent">.</span>
         </Link>
         <nav className="flex items-center gap-6">
           <Link
@@ -54,7 +54,7 @@ function Footer() {
   return (
     <footer className="border-t border-border py-8">
       <div className="max-w-4xl mx-auto px-6 flex items-center justify-between text-xs text-muted">
-        <span>© {new Date().getFullYear()} inkwell</span>
+        <span>© {new Date().getFullYear()} github Action pipeline</span>
         <span>Built with MERN + Tailwind</span>
       </div>
     </footer>
