@@ -168,12 +168,12 @@ jobs:
       - name: Tag images
         run: |
           docker tag backend:latest devopsabdullah45/mern-blog-backend215:v1
-          docker tag frontend:latest devopsabdullah45/mern-blog-frontend215:v2
+          docker tag frontend:latest devopsabdullah45/mern-blog-frontend215:v3
 
       - name: Push images
         run: |
           docker push devopsabdullah45/mern-blog-backend215:v1
-          docker push devopsabdullah45/mern-blog-frontend215:v2
+          docker push devopsabdullah45/mern-blog-frontend215:v3
 
   deploy:
     needs: docker-build
