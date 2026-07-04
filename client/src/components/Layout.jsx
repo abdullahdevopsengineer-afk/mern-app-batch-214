@@ -24,7 +24,7 @@ function Header() {
           to="/"
           className="text-xl font-serif font-bold tracking-tight hover:text-accent transition-colors"
         >
-          kuberenets-pipeline<span className="text-accent">.</span>
+          github action pipeline<span className="text-accent">.</span>
         </Link>
         <nav className="flex items-center gap-6">
           <Link
