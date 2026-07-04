@@ -191,4 +191,11 @@ jobs:
             cd ~/mern-app-batch-214 || git clone https://github.com/abdullahdevopsengineer-afk/mern-app-batch-214.git
 
             cd ~/mern-app-batch-214
+            git pull origin main
+            cd k8s
+            kubectl apply -f namespace.yml
+            kubectl apply -f mongodb_deployment.yml
+            kubectl apply -f backend_deployment.yml
+            kubectl apply -f frontend_deployment.yml
+            echo "Deployment completed successfully!"
       
