@@ -176,7 +176,7 @@ jobs:
     #       docker push devopsabdullah45/mern-blog-frontend215:v1
 
   deploy:
-    needs: docker-build
+    # needs: docker-build
     runs-on: ubuntu-latest
 
     steps:
